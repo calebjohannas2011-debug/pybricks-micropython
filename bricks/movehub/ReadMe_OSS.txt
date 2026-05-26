@@ -562,4 +562,4 @@ COPYRIGHT(c) 2016 STMicroelectronics
 (C) COPYRIGHT 2016 STMicroelectronics
 (C) COPYRIGHT 2014 STMicroelectronics
 (C) COPYRIGHT 2013 STMicroelectronics
-(C) COPYRIGHT 2012 STMicroelectronics
+(C) COPYRIGHT 2012 STMicroelectronics 
