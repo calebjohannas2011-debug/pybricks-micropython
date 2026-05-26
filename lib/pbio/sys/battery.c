@@ -22,7 +22,7 @@
 
 // These values are for Alkaline (AA/AAA) batteries
 #define BATTERY_OK_MV           5000    // 1.0V per cell
-#define BATTERY_LOW_MV          4000    // 0.9V per cell
+#define BATTERY_LOW_MV          4100    // 0.9V per cell
 #define BATTERY_CRITICAL_MV     3000    // 0.8V per cell
 
 // These values are for LEGO rechargeable battery packs
