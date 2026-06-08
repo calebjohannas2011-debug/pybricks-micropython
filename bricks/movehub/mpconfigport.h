@@ -57,9 +57,9 @@
 #define PYBRICKS_OPT_CUSTOM_IMPORT              (1)
 #define PYBRICKS_OPT_NATIVE_MOD                 (0)
 
-// --- ADD THESE TWO LINES HERE ---
-#define MICROPY_PY_IO                          (1)
-#define MICROPY_PORT_BUILTIN_MODULE_WEAK_LINKS (1)
-// --------------------------------
+// --- REPLACE THE PREVIOUS TWO LINES WITH THESE ---
+#define MICROPY_PY_SYS                          (1)
+#define MICROPY_DECLARE_LEXER_BUILTIN_FILENAME_STR_TABLE_(x)
+// -------------------------------------------------
 
 #include "../_common/mpconfigport.h"
