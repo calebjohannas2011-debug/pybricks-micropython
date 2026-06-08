@@ -29,16 +29,14 @@
 #define PYBRICKS_PY_HUBS                        (1)
 #define PYBRICKS_PY_IODEVICES                   (0)
 #define PYBRICKS_PY_PARAMETERS                  (1)
-// change under here
-#define PYBRICKS_PY_PARAMETERS_BUTTON           (0)
-#define PYBRICKS_PY_PARAMETERS_BUTTON_REMOTE_ONLY (1)
+#define PYBRICKS_PY_PARAMETERS_BUTTON           (1)
+#define PYBRICKS_PY_PARAMETERS_BUTTON_REMOTE_ONLY (0)
 #define PYBRICKS_PY_PARAMETERS_ICON             (0)
 #define PYBRICKS_PY_PARAMETERS_IMAGE            (0)
 #define PYBRICKS_PY_DEVICES                     (1)
 #define PYBRICKS_PY_PUPDEVICES                  (1)
 #define PYBRICKS_PY_PUPDEVICES_DUPLO_TRAIN      (0)
 #define PYBRICKS_PY_PUPDEVICES_MARIO            (0)
-// change under here
 #define PYBRICKS_PY_PUPDEVICES_REMOTE           (0)
 #define PYBRICKS_PY_PUPDEVICES_TECHNIC_MOVE_HUB (0)
 #define PYBRICKS_PY_ROBOTICS                    (1)
@@ -54,11 +52,14 @@
 #define PYBRICKS_OPT_RAW_REPL                   (0)
 #define PYBRICKS_OPT_FLOAT                      (0)
 #define PYBRICKS_OPT_TERSE_ERR                  (1)
-// change under here
-#define PYBRICKS_OPT_EXTRA_LEVEL1               (1)
+#define PYBRICKS_OPT_EXTRA_LEVEL1               (0)
 #define PYBRICKS_OPT_EXTRA_LEVEL2               (0)
 #define PYBRICKS_OPT_CUSTOM_IMPORT              (1)
 #define PYBRICKS_OPT_NATIVE_MOD                 (0)
 
+// Universal Interception Override Strategy:
+// If MicroPython's system requests the string token for 'sys', 
+// we swap the token directly for 'usys' at compilation time.
+#define MP_QSTR_sys MP_QSTR_usys
 
 #include "../_common/mpconfigport.h"
