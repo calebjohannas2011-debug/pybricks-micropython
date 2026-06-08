@@ -57,8 +57,8 @@
 #define PYBRICKS_OPT_CUSTOM_IMPORT              (1)
 #define PYBRICKS_OPT_NATIVE_MOD                 (0)
 
-// Direct injection of the sys module to circumvent compiler bloat
-#define MICROPY_PORT_BUILTIN_MODULE_WEAK_LINKS \
-    { MP_OBJ_NEW_QSTR(MP_QSTR_sys), (mp_obj_t)&mp_module_usys },
+// MicroPython standard feature switches to enable the sys alias mapping
+#define MICROPY_MODULE_WEAK_LINKS               (1)
+#define MICROPY_PY_BUILTINS_STR_SPLITLINES      (0) 
 
 #include "../_common/mpconfigport.h"
