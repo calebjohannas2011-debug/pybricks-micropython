@@ -1,29 +1,7 @@
-name: Build Custom Boost Firmware
-
-on:
-  workflow_dispatch: # Allows manual trigger via the "Run workflow" button
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-
-    - name: Install ARM GCC Toolchain
+- name: Patch Move Hub Config
       run: |
-        sudo apt-get update
-        sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi
-
-    - name: Patch Move Hub Config
-      run: |
-        # Fixed path to the movehub config file
         CONFIG_FILE="bricks/movehub/mpconfigport.h"
         
-        # Append configurations to enable usys/uselect and disable large features
         cat << 'EOF' >> "$CONFIG_FILE"
         
         /* Custom Additions for usys and uselect */
@@ -32,6 +10,9 @@ jobs:
         
         #undef MICROPY_PY_USELECT
         #define MICROPY_PY_USELECT (1)
+
+        /* Required dependency for MICROPY_PY_SYS */
+        #define MICROPY_MODULE_ATTR_DELEGATION (1)
         
         /* Disabling heavy features to make space in Flash memory */
         #undef PYBRICKS_PY_EV3DEVICES
@@ -49,16 +30,3 @@ jobs:
         #undef MICROPY_PY_BUILTINS_SET
         #define MICROPY_PY_BUILTINS_SET (0)
         EOF
-
-    - name: Build Firmware
-      run: |
-        # Build using the correct bricks directory
-        cd bricks/movehub
-        make clean
-        make
-
-    - name: Upload Firmware Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: custom-boost-firmware
-        path: bricks/movehub/build/firmware.zip
