@@ -31,7 +31,8 @@ jobs:
         #undef MICROPY_PY_USELECT
         #define MICROPY_PY_USELECT (1)
 
-        /* Required dependency for MICROPY_PY_SYS */
+        /* Safely clear and redefine the required dependency */
+        #undef MICROPY_MODULE_ATTR_DELEGATION
         #define MICROPY_MODULE_ATTR_DELEGATION (1)
         
         /* Disabling heavy features to make space in Flash memory */
