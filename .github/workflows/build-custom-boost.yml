@@ -1,4 +1,24 @@
-- name: Patch Move Hub Config
+name: Build Custom Boost Firmware
+
+on:
+  workflow_dispatch: # Allows manual trigger via the "Run workflow" button
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Install ARM GCC Toolchain
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi
+
+    - name: Patch Move Hub Config
       run: |
         CONFIG_FILE="bricks/movehub/mpconfigport.h"
         
@@ -30,3 +50,15 @@
         #undef MICROPY_PY_BUILTINS_SET
         #define MICROPY_PY_BUILTINS_SET (0)
         EOF
+
+    - name: Build Firmware
+      run: |
+        cd bricks/movehub
+        make clean
+        make
+
+    - name: Upload Firmware Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: custom-boost-firmware
+        path: bricks/movehub/build/firmware.zip
