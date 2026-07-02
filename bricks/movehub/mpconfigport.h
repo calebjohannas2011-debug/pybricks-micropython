@@ -31,6 +31,7 @@
 #define PYBRICKS_PY_PARAMETERS                  (1)
 #define PYBRICKS_PY_PARAMETERS_BUTTON           (1)
 #define PYBRICKS_PY_PARAMETERS_BUTTON_REMOTE_ONLY (1)
+#define PYBRICKS_PY_PARAMETERS_GEOMETRY         (1) // Added to fix axis errors
 #define PYBRICKS_PY_PARAMETERS_ICON             (0)
 #define PYBRICKS_PY_PARAMETERS_IMAGE            (0)
 #define PYBRICKS_PY_DEVICES                     (1)
