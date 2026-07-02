@@ -1,7 +1,7 @@
 name: Build Custom Boost Firmware
 
 on:
-  workflow_dispatch: # This adds a manual "Run" button to your GitHub dashboard
+  workflow_dispatch: # Allows manual trigger via the "Run workflow" button
 
 jobs:
   build:
@@ -20,7 +20,8 @@ jobs:
 
     - name: Patch Move Hub Config
       run: |
-        CONFIG_FILE="ports/stm32/boards/move_hub/mpconfigport.h"
+        # Fixed path to the movehub config file
+        CONFIG_FILE="bricks/movehub/mpconfigport.h"
         
         # Append configurations to enable usys/uselect and disable large features
         cat << 'EOF' >> "$CONFIG_FILE"
@@ -36,21 +37,28 @@ jobs:
         #undef PYBRICKS_PY_EV3DEVICES
         #define PYBRICKS_PY_EV3DEVICES (0)
         
+        #undef PYBRICKS_PY_PUPDEVICES
+        #define PYBRICKS_PY_PUPDEVICES (0)
+
         #undef MICROPY_PY_BUILTINS_REVERSED
         #define MICROPY_PY_BUILTINS_REVERSED (0)
         
         #undef MICROPY_PY_BUILTINS_STR_COUNT
         #define MICROPY_PY_BUILTINS_STR_COUNT (0)
+
+        #undef MICROPY_PY_BUILTINS_SET
+        #define MICROPY_PY_BUILTINS_SET (0)
         EOF
 
     - name: Build Firmware
       run: |
-        cd ports/stm32
-        make BOARD=move_hub clean
-        make BOARD=move_hub
+        # Build using the correct bricks directory
+        cd bricks/movehub
+        make clean
+        make
 
     - name: Upload Firmware Artifact
       uses: actions/upload-artifact@v4
       with:
         name: custom-boost-firmware
-        path: ports/stm32/build-move_hub/firmware.zip
+        path: bricks/movehub/build/firmware.zip
